@@ -17,7 +17,7 @@ object Product {
 
   def parseProductsFromFile(magasin: String, date: String): Option[List[Product]] = {
     try {
-      Some(Source.fromResource(s"reference_prod-$magasin" + s"_$date.data").getLines.flatMap(parseProduct(date, magasin)).toList)
+      Some(Source.fromResource(s"reference_prod-${magasin}_$date.data").getLines.flatMap(parseProduct(date, magasin)).toList)
     } catch {
       case e: Exception =>
         Logger.getAnonymousLogger.warning(s"Caught the following exception while parsing the product file of magasin $magasin of date $date: $e.")

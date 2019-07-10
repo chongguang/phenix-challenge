@@ -4,6 +4,7 @@ import java.io.{BufferedWriter, FileWriter}
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+import com.carrefour.Transaction.getTransactions
 
 object Utils {
 
@@ -36,6 +37,21 @@ object Utils {
       writer.write(tuple._1 + "|" + tuple._2 + "\n")
     }
     writer.close()
+  }
+
+  def generateResultFiles(date: String, for7Days: Boolean = false): Unit = {
+    val dates: List[String] = if (for7Days) last7Days(date) else List(date)
+    val transactions: List[Transaction] = getTransactions(dates)
+
+    val dateLabel: String = if (for7Days) date + "-J7" else date
+    writeToFile(s"output/top_100_ventes_GLOBAL_$dateLabel.data", top100Sales(transactions))
+    writeToFile(s"output/top_100_ca_GLOBAL_$dateLabel.data", top100Revenu(transactions))
+
+    Shop.ShopIds.foreach{ s =>
+      val trans = transactions.filter(t => t.shopId == s)
+      writeToFile(s"output/top_100_ventes_${s}_$dateLabel.data", top100Sales(trans))
+      writeToFile(s"output/top_100_ca_${s}_$dateLabel.data", top100Revenu(trans))
+    }
   }
 
 }
