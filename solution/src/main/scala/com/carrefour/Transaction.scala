@@ -38,7 +38,6 @@ object Transaction {
     }
   }
 
-
   def parseTransaction(date: String)(s: String): Option[Transaction] = {
     val sList = s.split('|').map(_.trim)
     try {

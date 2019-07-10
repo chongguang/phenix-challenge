@@ -21,9 +21,14 @@ git clone https://github.com/chongguang/phenix-challenge.git
 cd solution
 ```
 
-## Package the project with SBT
+## Run unit tests
 ```
-sbt package
+sbt clean test
+```
+
+## Package the project
+```
+sbt clean package
 ```
 A jar will be generate in the target/scala-2.12/ folder.
 
