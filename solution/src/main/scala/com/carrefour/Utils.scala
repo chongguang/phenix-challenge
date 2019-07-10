@@ -14,4 +14,18 @@ object Utils {
     }
   }
 
+  def top100Sales(transactions: List[Transaction]): List[(Long, Long)] =
+    transactions.foldLeft(Map[Long, Long]()) {
+      (acc: Map[Long, Long], t: Transaction) =>
+        if (acc.contains(t.produit)) acc + (t.produit -> (acc(t.produit) + t.qte))
+        else acc + (t.produit -> t.qte)
+    }.toList.sortBy(-_._2)
+
+  def top100Revenu(transactions: List[Transaction]): List[(Long, Double)] =
+    transactions.foldLeft(Map[Long, Double]()) {
+      (acc: Map[Long, Double], t: Transaction) =>
+        if (acc.contains(t.produit)) acc + (t.produit -> (acc(t.produit) + t.qte * t.price))
+        else acc + (t.produit -> t.qte * t.price)
+    }.toList.sortBy(-_._2)
+
 }
