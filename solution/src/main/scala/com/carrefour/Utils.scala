@@ -1,7 +1,9 @@
 package com.carrefour
 
+import java.io.{BufferedWriter, FileWriter}
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+
 
 object Utils {
 
@@ -19,13 +21,21 @@ object Utils {
       (acc: Map[Long, Long], t: Transaction) =>
         if (acc.contains(t.produit)) acc + (t.produit -> (acc(t.produit) + t.qte))
         else acc + (t.produit -> t.qte)
-    }.toList.sortBy(-_._2)
+    }.toList.sortBy(-_._2).take(100)
+
+  def writeToFile(filename: String, l: List[(Long, Any)]): Unit = {
+    val writer = new BufferedWriter(new FileWriter(filename))
+    for(tuple <- l) {
+      writer.write(tuple._1 + "|" + tuple._2 + "\n")
+    }
+    writer.close()
+  }
 
   def top100Revenu(transactions: List[Transaction]): List[(Long, Double)] =
     transactions.foldLeft(Map[Long, Double]()) {
       (acc: Map[Long, Double], t: Transaction) =>
         if (acc.contains(t.produit)) acc + (t.produit -> (acc(t.produit) + t.qte * t.price))
         else acc + (t.produit -> t.qte * t.price)
-    }.toList.sortBy(-_._2)
+    }.toList.sortBy(-_._2).take(100)
 
 }
