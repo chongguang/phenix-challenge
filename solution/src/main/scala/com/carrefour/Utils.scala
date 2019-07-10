@@ -23,6 +23,13 @@ object Utils {
         else acc + (t.produit -> t.qte)
     }.toList.sortBy(-_._2).take(100)
 
+  def top100Revenu(transactions: List[Transaction]): List[(Long, Double)] =
+    transactions.foldLeft(Map[Long, Double]()) {
+      (acc: Map[Long, Double], t: Transaction) =>
+        if (acc.contains(t.produit)) acc + (t.produit -> (acc(t.produit) + t.qte * t.price))
+        else acc + (t.produit -> t.qte * t.price)
+    }.toList.sortBy(-_._2).take(100)
+
   def writeToFile(filename: String, l: List[(Long, Any)]): Unit = {
     val writer = new BufferedWriter(new FileWriter(filename))
     for(tuple <- l) {
@@ -30,12 +37,5 @@ object Utils {
     }
     writer.close()
   }
-
-  def top100Revenu(transactions: List[Transaction]): List[(Long, Double)] =
-    transactions.foldLeft(Map[Long, Double]()) {
-      (acc: Map[Long, Double], t: Transaction) =>
-        if (acc.contains(t.produit)) acc + (t.produit -> (acc(t.produit) + t.qte * t.price))
-        else acc + (t.produit -> t.qte * t.price)
-    }.toList.sortBy(-_._2).take(100)
 
 }

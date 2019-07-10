@@ -11,16 +11,24 @@ object App {
     val last7Dates: List[String] = last7Days(dayJ)
     val transactionsDayJ: List[Transaction] = getTransactions(dateJ)
     val transactions7Days: List[Transaction] = getTransactions(last7Dates)
-    //transactions.take(10).foreach(println)
-    val top100SalersDayJ = top100Sales(transactionsDayJ)
-    writeToFile(s"output/top_100_ventes_GLOBAL_$dayJ.data", top100SalersDayJ)
-    val top100RevenuProductsDayJ = top100Revenu(transactionsDayJ)
-    writeToFile(s"output/top_100_ca_GLOBAL_$dayJ.data", top100RevenuProductsDayJ)
 
-    val top100Salers7Days = top100Sales(transactions7Days)
-    writeToFile(s"output/top_100_ventes_GLOBAL_$dayJ-J7.data", top100Salers7Days)
-    val top100RevenuProducts7Days = top100Revenu(transactions7Days)
-    writeToFile(s"output/top_100_ca_GLOBAL_$dayJ-J7.data", top100RevenuProducts7Days)
+    writeToFile(s"output/top_100_ventes_GLOBAL_$dayJ.data", top100Sales(transactionsDayJ))
+    writeToFile(s"output/top_100_ca_GLOBAL_$dayJ.data", top100Revenu(transactionsDayJ))
+
+    writeToFile(s"output/top_100_ventes_GLOBAL_$dayJ-J7.data", top100Sales(transactions7Days))
+    writeToFile(s"output/top_100_ca_GLOBAL_$dayJ-J7.data", top100Revenu(transactions7Days))
+
+    Shop.ShopIds.foreach{ s =>
+      val trans = transactions7Days.filter(t => t.shopId == s)
+      writeToFile(s"output/top_100_ventes_${s}_$dayJ-J7.data", top100Sales(trans))
+      writeToFile(s"output/top_100_ca_${s}_$dayJ-J7.data", top100Revenu(trans))
+    }
+
+    Shop.ShopIds.foreach{ s =>
+      val trans = transactionsDayJ.filter(t => t.shopId == s)
+      writeToFile(s"output/top_100_ventes_${s}_$dayJ.data", top100Sales(trans))
+      writeToFile(s"output/top_100_ca_${s}_$dayJ.data", top100Revenu(trans))
+    }
   }
 
 
