@@ -1,5 +1,8 @@
 package com.carrefour
 
+/**
+  * This object stores all the shop ids.
+  */
 object Shop {
 
   val ShopIds: List[String] = List(
