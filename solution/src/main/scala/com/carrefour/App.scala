@@ -1,6 +1,5 @@
 package com.carrefour
 
-
 import Utils.generateResultFiles
 
 object App {
