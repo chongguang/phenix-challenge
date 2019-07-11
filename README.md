@@ -32,6 +32,11 @@ sbt clean package
 ```
 A jar will be generate in the target/scala-2.12/ folder.
 
+## Set RAM of JVM to 512M as asked in the exercise
+```
+export JAVA_OPTS="-Xmx512m"
+```
+
 ## Run the code and generate files
 ```
 scala -classpath ./target/scala-2.12/phenix-challenge_2.12-0.1.0-SNAPSHOT.jar com.carrefour.App
