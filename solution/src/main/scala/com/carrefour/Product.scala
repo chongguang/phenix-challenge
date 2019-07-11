@@ -8,10 +8,10 @@ case class Product(produit: Long, price: Double, date: String, shopId: String)
 
 object Product {
 
-  def getProductsPriceMap(date: String): Map[(Long, String, String), Double] = productsToMap(getProductsByDate(date))
+  def getProductsPriceMap(date: String): Map[Long, Double] = productsToMap(getProductsByDate(date))
 
-  def productsToMap(products: List[Product]): Map[(Long, String, String), Double] =
-    products map (p => (p.produit, p.date, p.shopId) -> p.price) toMap
+  def productsToMap(products: List[Product]): Map[Long, Double] =
+    products map (p => p.produit -> p.price) toMap
 
   def getProductsByDate(date: String): List[Product] = Shop.ShopIds.flatMap(m => parseProductsFromFile(m, date)).flatten
 

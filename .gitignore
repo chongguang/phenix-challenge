@@ -2,3 +2,5 @@
 solution/target/
 solution/project/target/
 src/main/scala/com/carrefour/target/
+
+output/

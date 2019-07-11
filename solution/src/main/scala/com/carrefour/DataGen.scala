@@ -15,7 +15,7 @@ object DataGen {
 
     val writer = new BufferedWriter(new FileWriter("transactions_20170512.data"))
     for(t <- transactions50Times) {
-      writer.write(t.txId + "|" + t.date + "|" + t.shopId + "|" + t.produit + "|" + t.qte + "\n")
+      writer.write(t.txId + "|" + t.date + "|" + t.shopId + "|" + t.productId + "|" + t.qte + "\n")
     }
     writer.close()
 
