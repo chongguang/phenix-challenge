@@ -4,6 +4,9 @@ import java.io.{BufferedWriter, FileWriter}
 
 import com.carrefour.Transaction.getTransactionsByDate
 
+/**
+  * This main function is used to generate data file of big volume for testing purpose.
+  */
 object DataGen {
 
   def main(args: Array[String]): Unit = {

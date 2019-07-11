@@ -18,7 +18,7 @@ class ProductSpec extends FunSuite with Matchers {
   }
 
   test("productsToMap") {
-    productsToMap(ProductList1) shouldEqual Map[(Long, String, String), Double]((1L, "20170514", "shop1") -> 4.7, (2L, "20170514", "shop1") -> 3.2)
-    productsToMap(ProductList2) shouldEqual Map[(Long, String, String), Double]()
+    productsToMap(ProductList1) shouldEqual Map[Long, Double](1L -> 4.7, 2L -> 3.2)
+    productsToMap(ProductList2) shouldEqual Map[Long, Double]()
   }
 }

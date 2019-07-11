@@ -18,7 +18,6 @@ object Transaction {
       case _ => List()
     }
 
-
   def addPriceToTransaction(priceMap: Map[Long, Double]): Transaction => Option[Transaction] =
     t => {
       try {
@@ -61,7 +60,6 @@ object Transaction {
         Logger.getAnonymousLogger.warning(s"Caught the following exception while parsing transaction file of date $date: $e.")
         None
     }
-
 
   def parseTransaction(date: String)(s: String): Option[Transaction] = {
     val sList = s.split('|').map(_.trim)
