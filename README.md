@@ -50,4 +50,4 @@ I parse the transaction file and aggregate by product Id before finding price fr
 
 For calculating `ventes` or `ca` for the past 7 days, it is difficult to load 7 days' transactions into memory in the same time. So we aggregate directly from the calculated files of each day. This solution is not always accurate but use much less memory.
 
-The object `DataGen.scala` has been created for generating big files for testing purpose. It programme has been tested and is able to deal with files of 10+ million transactions, but failed for 17+ million transactions under the constraint of 512M of memory.
+The object `DataGen.scala` has been created for generating big files for testing purpose. It programme has been tested and is able to deal with files of 5+ million transactions under the constraint of 512M of memory. One potential improvement is to aggregate a transaction once it is read from file. The reason is that the Source Object is lazy but applying the toList() function loads everything into memory. 
